@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://user-management-system-17ls.onrender.com/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
