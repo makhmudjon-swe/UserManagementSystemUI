@@ -46,13 +46,6 @@ export function Registration() {
         toast.info('Redirecting to login...');
       }, 2000);
     } catch (err: any) {
-      console.error('Registration error:', err);
-      if (err.response) {
-        console.error('Error response:', err.response.data);
-        console.error('Error status:', err.response.status);
-        console.error('Error headers:', err.response.headers);
-      }
-      
       const status = err.response?.status;
       const errorMessage = err.response?.data?.message || err.response?.data || err.message || 'Registration failed';
       

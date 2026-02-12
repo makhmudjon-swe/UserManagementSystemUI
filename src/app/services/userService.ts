@@ -12,8 +12,8 @@ export interface User {
 export interface GetUsersResponse extends Array<User> {}
 
 export interface UpdateUsersRequest {
-  ids: string[];
-  status: 'Unverified' | 'Active' | 'Blocked';
+  ids: string[]; 
+  status: number; 
 }
 
 export interface DeleteUsersRequest {
@@ -36,8 +36,12 @@ export const userService = {
   },
 
   updateUsers: async (data: UpdateUsersRequest): Promise<DeleteResponse> => {
-    const response = await api.put<DeleteResponse>('/users/update', data);
-    return response.data;
+    try {
+      const response = await api.put<DeleteResponse>('/users/update', data);
+      return response.data;
+    } catch (error: any) {
+      throw error;
+    }
   },
 
   deleteUsers: async (data: DeleteUsersRequest): Promise<DeleteResponse> => {

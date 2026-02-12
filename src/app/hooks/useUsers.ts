@@ -20,8 +20,30 @@ export const useUsers = () => {
   };
 
   const updateUsers = async (ids: string[], status: 'Unverified' | 'Active' | 'Blocked') => {
+    // Validate that IDs are in proper GUID format
+    const isValidGuid = (id: string): boolean => {
+      const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      return guidRegex.test(id);
+    };
+
+    // Filter out invalid IDs
+    const validIds = ids.filter(isValidGuid);
+
+    if (validIds.length === 0) {
+      throw new Error('No valid user IDs provided');
+    }
+
+    // Convert string status to numeric value
+    const statusMap: Record<'Unverified' | 'Active' | 'Blocked', number> = {
+      'Unverified': 0,
+      'Active': 1,
+      'Blocked': 2
+    };
+
+    const numericStatus = statusMap[status];
+
     try {
-      await userService.updateUsers({ ids, status });
+      await userService.updateUsers({ ids: validIds, status: numericStatus });
       await fetchUsers(); // Refresh the list
     } catch (err: any) {
       throw new Error(err.response?.data?.message || err.message || 'Failed to update users');

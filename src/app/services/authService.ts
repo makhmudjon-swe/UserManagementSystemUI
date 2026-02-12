@@ -37,16 +37,9 @@ export const authService = {
   // Register user
   register: async (data: RegisterRequest): Promise<{ message: string }> => {
     try {
-      console.log('Sending registration data:', data);
       const response = await api.post<{ message: string }>('/auth/register', data);
-      console.log('Registration response:', response.data);
       return response.data;
     } catch (error: any) {
-      console.error('Registration API error:', error);
-      if (error.response) {
-        console.error('Error response data:', error.response.data);
-        console.error('Error response status:', error.response.status);
-      }
       throw error;
     }
   },

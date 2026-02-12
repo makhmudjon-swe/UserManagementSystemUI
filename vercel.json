@@ -1,31 +1,13 @@
 {
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "https://user-management-system-17ls.onrender.com/api/:path*"
+      "source": "/api/(.*)",
+      "destination": "https://user-management-system-17ls.onrender.com/api/:1"
     },
     {
-      "source": "/:path*",
-      "destination": "/index.html"
+      "source": "/((?!api|_next/static|_next/image|favicon.ico|static|.*\\..+).*)",
+      "destination": "/"
     }
   ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
-    }
-  ]
+  "cleanUrls": true
 }

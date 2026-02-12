@@ -23,13 +23,6 @@ export function Login() {
       toast.success('Login successful!');
       navigate('/admin');
     } catch (err: any) {
-      console.error('Login error:', err);
-      
-      if (err.response) {
-        console.error('Error response:', err.response.data);
-        console.error('Error status:', err.response.status);
-      }
-      
       const status = err.response?.status;
       const errorMessage = err.response?.data?.message || err.response?.data || err.message || 'Login failed';
       
