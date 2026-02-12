@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Configuration - set based on environment
 declare global {
   interface ImportMeta {
     env: {
@@ -9,7 +8,6 @@ declare global {
   }
 }
 
-// Base API configuration using environment variables
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
   (window.location.hostname === 'localhost' ? '/api' : 'https://user-management-system-17ls.onrender.com/api');
 const api = axios.create({

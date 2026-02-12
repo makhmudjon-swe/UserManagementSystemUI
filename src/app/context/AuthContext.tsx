@@ -18,7 +18,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is already authenticated on app load
     const token = authService.getToken();
     setIsAuthenticated(!!token);
     setLoading(false);
@@ -50,24 +49,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     authService.logout();
     setIsAuthenticated(false);
-    // Only navigate if we're not already on login page
     if (window.location.pathname !== '/login') {
       navigate('/login');
     }
   };
 
-  // Handle token validation errors
   useEffect(() => {
     const handleUnauthorized = () => {
       authService.logout();
       setIsAuthenticated(false);
-      // Only navigate if we're not already on login page
       if (window.location.pathname !== '/login') {
         navigate('/login');
       }
     };
 
-    // Listen for unauthorized events from API calls
     const handleApiError = (event: CustomEvent) => {
       if (event.detail?.status === 401) {
         handleUnauthorized();
